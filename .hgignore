@@ -1,0 +1,6 @@
+syntax: glob
+cheatsheet2.out
+cheatsheet2.aux
+cheatsheet2.fdb_latexmk
+cheatsheet2.fls
+cheatsheet2.log

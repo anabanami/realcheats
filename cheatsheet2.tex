@@ -1,0 +1,504 @@
+% latexmk -pvc -pdf
+\documentclass[10pt,landscape,a4paper]{article}
+\usepackage{multicol}
+\usepackage{calc}
+\usepackage{ifthen}
+\usepackage[landscape]{geometry}
+\usepackage{amsmath,amsthm,amsfonts,amssymb}
+\usepackage{color,graphicx,overpic}
+\usepackage[english]{babel}
+%\usepackage{blindtext}
+
+%equation alignment (&=)
+%\begin{align*}
+%\end{align*}
+
+
+\geometry{margin=2mm}
+
+%Redefine section commands to use less space
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{1}{0mm}%
+                                {-4explus -.2ex minus -.2ex}%
+                                {0.5ex plus .2ex}%x
+                                {\normalfont\footnotesize\bfseries}}
+\renewcommand{\subsection}{\@startsection{subsection}{2}{0mm}%
+                                {-1explus -.5ex minus -.2ex}%
+                                {0.5ex plus .2ex}%
+                                {\normalfont\footnotesize\bfseries}}
+% \renewcommand{\subsubsection}{\@startsection{subsubsection}{3}{0mm}%
+%                                 {-1ex plus -.5ex minus -.2ex}%
+%                                 {1ex plus .2ex}%
+%                                 {\normalfont\footnotesize\bfseries}}
+% \makeatother
+
+% Don't print section numbers
+\setcounter{secnumdepth}{0}
+
+%making colours
+\definecolor{mygray}{gray}{0.6}
+\definecolor{byzantine}{rgb}{0.74, 0.2, 0.64}
+\definecolor{darklavender}{rgb}{0.45, 0.31, 0.59}
+\definecolor{trolleygrey}{rgb}{0.5, 0.5, 0.5}
+\definecolor{ferngreen}{rgb}{0.31, 0.47, 0.26}
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13}
+\definecolor{cyan(process)}{rgb}{0.0, 0.72, 0.92}
+\definecolor{crimson}{rgb}{0.86, 0.08, 0.24}
+\definecolor{burntorange}{rgb}{0.8, 0.33, 0.0}
+\definecolor{brilliantlavender}{rgb}{0.96, 0.73, 1.0}
+\definecolor{bubblegum}{rgb}{0.99, 0.76, 0.8}
+\definecolor{emerald}{rgb}{0.31, 0.78, 0.47}
+\definecolor{goldenrod}{rgb}{0.85, 0.65, 0.13}
+\definecolor{frenchrose}{rgb}{0.96, 0.29, 0.54}
+\definecolor{indigo(dye)}{rgb}{0.0, 0.25, 0.42}
+\definecolor{tropicalrainforest}{rgb}{0.0, 0.46, 0.37}
+\definecolor{xanadu}{rgb}{0.45, 0.53, 0.47}
+\definecolor{twilightlavender}{rgb}{0.54, 0.29, 0.42}
+\definecolor{cornflowerblue}{rgb}{0.39, 0.58, 0.93}
+\definecolor{awesome}{rgb}{1.0, 0.13, 0.32}
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\definecolor{bluegray}{rgb}{0.4, 0.6, 0.8}
+\definecolor{brickred}{rgb}{0.8, 0.25, 0.33}
+\definecolor{cerulean}{rgb}{0.0, 0.48, 0.65}
+%def
+\def\line{
+
+  \noindent{\color{mygray} \rule{\linewidth}{0.005mm}}
+
+}
+\def\R{\mathbb{R}}
+\def\N{\mathbb{N}}
+\def\Q{\mathbb{Q}}
+\def \bd{\textcolor{burgundy}{bd}}
+\def\clsd{\textcolor{cyan(process)}{clsd}}
+\def\cmpct{\textcolor{crimson}{cmpct}}
+\def\monotone{\textcolor{burntorange}{monotone}}
+\def\cv{\textcolor{emerald}{cv}}
+\def\cauchy{\textcolor{goldenrod}{cauchy}}
+\def\lim{\textcolor{frenchrose}{lim}}
+\def\op{\textcolor{indigo(dye)}{op}}
+\def\countable{\textcolor{tropicalrainforest}{countable}}
+\def\uncountable{\textcolor{xanadu}{uncountable}}
+\def\decreasing{\textcolor{twilightlavender}{decreasing}}
+\def\cntrctn{\textcolor{cornflowerblue}{cntrctn}}
+\def\positive{\textcolor{awesome}{positive}}
+\def\unif{\textcolor{antiquefuchsia}{unif}}
+\def\pw{\textcolor{bluegray}{pw}}
+\def\diff{\textcolor{brickred}{diff}}
+\def\cont{\textcolor{brickred}{cont}}
+
+%macros (commands)
+\newcommand\thm[1]{\line\textcolor{darklavender}{\bf#1}}
+\newcommand\hint[1]{\textcolor{trolleygrey}{\bf#1}}
+\newcommand\greenbox[1]{\line\textcolor{ferngreen}{\bf#1}}
+% \newcommand\LIMinftya[1]{\noindent$$\lim_{n\to\infty}a_n $$}
+% \newcommand\LIMinftyb[1]{\noindent$$\lim_{n\to\infty}b_n $$}
+\newcommand\LIMinfty{\lim_{n\to\infty}}
+\newcommand\LIMc{\lim_{x\to c}}
+\newcommand\LIMh{\lim_{h\to 0}}
+
+\begin{document}
+%\raggedright
+%\footnotesize
+\begin{multicols}{8}
+
+% multicol parameters
+% These lengths are set only within the two main columns
+%\setlength{\columnseprule}{0.25pt}
+\setlength{\premulticols}{0.1pt}
+\setlength{\postmulticols}{0.1pt}
+\setlength{\multicolsep}{0.1pt}
+\setlength{\columnsep}{0.1pt}
+\setlength{\abovedisplayskip}{1pt}
+\setlength{\belowdisplayskip}{1pt}
+\setlength{\abovedisplayshortskip}{1pt}
+\setlength{\belowdisplayshortskip}{1pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt plus 0.3ex}
+
+
+\tiny
+\hint{$\neg (\forall \epsilon, \exists \delta) \Leftrightarrow (\exists \epsilon, \forall \delta)$...\\ contrdctn: neg definitions, flip ineq in conclusion.}\\
+\hint{$\frac{d}{dx} a^x = a^x \log a$}\\
+\hint{*$\surd{a} - \surd{b} = \frac{a - b}{\surd{a} + \surd{b}}$\\ *$\frac{a}{b +\surd{c}}$ x 1 (denom.opp.sign)}\\
+\hint{* contrapos: if A $\Rightarrow$ B, then $\neg$ B $\Rightarrow \neg$ A.}\\
+$\neg (A\ \mathrm{and} \ B) \Leftrightarrow \neg A\ \mathrm{or}\ \neg B$
+\greenbox{ineq algebra}\\ (i) If $x \leq y$ and $z \in \R$ then $x + y \leq y + z$\\ 
+(ii) If $x \leq y$ and $c \geq 0$ then $cx \leq cy.$\\
+(iii)If $x \leq y$ and $c \leq 0$ then $cx \geq cy.$\\
+(iv) If $\frac{c}{x} \leq y$ and $c\geq 0$ then $x \geq \frac{c}{y}$. 
+
+\greenbox{Abs.val and inequalities}\\
+(i) $|a| = a,$  if $a \geq  0, |a| = - a\ $ if $a \leq 0.$\\
+(ii) $|a| \leq m \Leftrightarrow - m \leq a \leq m.$ \\ In particular, $-|a| \leq a \leq |a|$.\\
+(iii) \textcolor{ferngreen}{Triangle ineq}\\ $|a \pm b| \leq |a| \pm |b|.$
+\greenbox{Indtn}\\Prove that $a_n$ is hippo $\forall n \in \N$
+\\1. Base case: do the first term(s) satisfy hippo?
+\\2. Inductive step: prove that by assuming $a_n$ hippo $\Rightarrow a_{n+1}$ is hippo.
+
+\greenbox{characterisations of s = sup(A)}\\
+s is a supremum of A $\Leftrightarrow$ (i) s is an UB of A and (ii) $\forall \epsilon > 0, \exists a \in a : s - \epsilon \leq a \leq s.$\\
+(or) (i) and (iii) if z is an UB of A, then $z \geq s.$
+
+\thm{Archimedean rty} \\$\forall x > 0$, $\forall y \in \R$, $\exists n \in \N: nx > y.$
+
+\thm{AoC}
+Every non empty set of the reals that is  \bd\ above has a supremum.
+
+\thm{NIP}
+For each $n \in \N$, assume we have a \clsd\ int ${I_n = [a_n, b_n]} = \{x \in \R: {a_n \leq x \leq b_n\}}$. Assume each $I_n \geq I_{n+1}$ then the resulting sequence of nested ints has $\bigcap_n I_n \neq \emptyset.$
+\\\hint{let $A = \{a_n: n \in \N\}$, by AoC, A has a sup s (check). Then $s \in \bigcap_n I_n$ if $s \in I_n \forall n \in \N. s\geq a_n$ by def of A, if $b_n$ is an UB of A (...), then $s\leq b_n. (\hdots) \therefore a_n \leq s \leq b_n \Rightarrow s \in I_n$}
+
+\thm{2.27} An int I is \cmpct\ $\Leftrightarrow$ I is  \bd\ and it contains its endpoints, i.e. I is an int of the form [a, b]: $ a, b \in \R $
+
+\thm{PCS}if $ f: A \to \R$ is \cont on A and $K \subset A$ is \cmpct.\\ Then $f(K)$ is \cmpct.\\ 
+\hint{$f(K)$ is cmpct. \\Let $(y_n) \in f(K)$: $y_n = f(x_n)$ $\Leftarrow (x_n)\in K.$\\ Translate the fact that K is cmpct, and use the cnty of f along the SCC.}
+
+\thm{Density of $ \Q \in \R $} $\forall a, b$ with $a < b, \exists r: a < r < b.$ \\ (or) Given any $y \in \R, \exists (q_n) \in \Q$ converging to y.
+
+\hint{$\neg $op $ \nRightarrow$ \clsd} 
+
+\thm{HB} a set $A \in \R$ is \cmpct\ $\Leftrightarrow$ A \clsd\ and  \bd.
+
+
+\thm{clsdness}  A set F $\in \R\ $ is \clsd\ $\Leftrightarrow$ every \cauchy\ sequence in F has a \lim\ in F.
+\tiny
+\greenbox{seq \cv} \\ (1) $|u_n - l| \leq \epsilon$ \\(2) find $N_\epsilon$ and impose that n must be such that this upper bound is less that $ \epsilon$.\\
+(3) Take any M that is greater than $N_\epsilon$, so whenever $n \geq M \geq \N_\epsilon, \Rightarrow |u_n - l| \leq \epsilon$.
+
+\greenbox{Indeterminate \lim\ }\\
+(1) Try and factorise the “dominant” term, to simplify the expression and find
+the lim or prove it DNE.\\
+(2) Use these to find the dominant term:$(\forall k \in \N)$\\
+(i) $\LIMinfty n^{-k} e^n = \infty$\\
+(ii) $\LIMinfty n^{-k} e^n = 0$,\\
+(iii) $\LIMinfty \frac{\log(n)}{n} = 0.$
+
+\thm{Charact.of\ \bd\ seq} $(u_n)_{n \in \N}$ is  \bd\ $\Leftrightarrow (|u_n |)$ is  \bd\ above, that is\\ $\exists M \in \R : |u_n| \leq M, \forall n \in \N$. \\(similarly for below)
+
+\thm{MCT}
+ If a sequence is \monotone\ and  \bd\ $\Rightarrow$ \cv\.\\\hint{*NIP, and using charact of sup(A) and monotonicity...}
+
+\thm{BW} Every  \bd\ sequence contains a \cv\ sbq.
+\hint{Compactness!}
+
+\thm{SLT} sbqs of \cv\ seq \cv\ to the \lim\ of the original sequence.\hint{shows how some seqs, don't \cv.}
+
+\thm{$\R$  is complete} a sequence \cv\ in $\R$ if it is \cauchy. 
+
+\thm{2.12 (\cv\ seq are \bd)} \\
+\cv\ $\Rightarrow$  \bd\ \\\hint{not \bd 
+$\Rightarrow$ not \cv}
+\\\hint{$\epsilon = 1$ and find $N_\epsilon$ from $u_n \to \ell$ as $n \to \infty$.
+by Triang. ineq \\$|u_n| = |u_n - \ell + \ell| \leq\\ |u_n - \ell| + |\ell| \leq 1 + |\ell|$. $M = max(|u_1|,\hdots,|u_{N_{\epsilon}-1}|,1-\ell)$ is $UB(|u_n|)$, Char.Bd.Seq. $\Rightarrow (u_n)$ is Bd.}
+
+\thm{2.31} \\1.\cauchy\ $\Leftrightarrow$ \cv.
+ \\2.\cauchy\ seq are  \bd. \\\hint{*pr.2.12 (change $\ell$ for $u_p$). use $\epsilon/2$ instead and if $n, p \geq N/2$, by triang.ineq $|u_n - u_p| = |u_n - \ell + \ell - u_p| \hdots$} 
+ 
+\thm{2.14 (Uniqueness of the lim)}
+If $(a_n)_{n \in \N}$ has a \lim\, then this \lim\ is unique and it is denoted by $\LIMinfty a_n$
+\\\hint{cntradtn. Assume $\ell < \ell'$, take $\epsilon = (\ell' - \ell)/3$. Translate the defs, find the ranks, and by triang. Ineq.\\$|\ell'-\ell|\leq|\ell- u_n| +|u_n - \ell'| = 2 \epsilon = 2/3 (\ell' - \ell) \Rightarrow \ell' = \ell.$}
+
+\thm{ALT (seq)} Let $(a_n) and (b_n)$ be two \cv\ seq:\\ $\LIMinfty a_n = a$ \\and $\LIMinfty b_n = b.$ \\ 
+(i) $\forall c \in \R,  Lim\ c\ a_n = ca$.\\
+(ii) lim of sum is sum of lims.\\
+(iii) lim  of prod is prod of lims.\\
+(iv) lim of quot is quot of lims (if lims exist).
+\\\hint{(i)$|c a_n - c a| = |c||a_n - a|$ where $c\neq 0$ translate $"a_n \to a"$ with $\epsilon/|c|$ find the rank, etc...  \\
+(ii) $|a_n + b_n - (a+b)|\leq|a_n - a|+|b_n - b|.$ $\epsilon>0$, find each rank $N_\epsilon, M_\epsilon$ and use the max as the rank of the sum. \\
+(iii) Triangle ineq:$|a_n b_n - ab|$\\...by 2.12 since $a_nb_n$ it is bd \ by M it is $\leq$ Msomething.Take $\epsilon > 0$ and translate the lims of $(a_n)$ and $(b_n)$ respectively, with $\epsilon/(2M)$ and $\epsilon/(2|b|)$, take the max of the ranks to conclude.\\
+(iv) using (iii) allow $a_n = 1, \forall n$}
+
+\thm{OLT}\ Let $\LIMinfty a_n = a$ and $\LIMinfty b_n = b $:\\
+(i) if $a_n \leq b_n$ then $a \leq b$.\\
+(ii)  if $a_n \geq 0, \forall n \in \N \Rightarrow a \geq 0$.\\
+(iii) if $\exists z \in \R: z \leq b_n \forall n \in \N \Rightarrow z \leq b.$ 
+\\\hint{cntradtn let $b < a$ and take $\epsilon = (a-b)/3$. Take $N_\epsilon$ for $a_n \to a$  and $M_\epsilon$ for $b_n \to b$. 
+Consider $n = max(N_\epsilon , M_\epsilon )$ so 
+$|a_n - a| \leq \epsilon$ and $|b_n - b| \leq \epsilon$
+by assumption in OLT $a_n \leq b_n$ so $a-\epsilon \leq a \leq b \leq b+\epsilon$ write $\epsilon$ to show cntradtn with $b < a.$}
+
+\thm{Squeeze (seq)} 
+
+Let $(u_n) , (v_n)$ and $(w_n)$ be three seq. If $(u_n)$ and $(w_n)$ \cv\ to $\ell$ and if $u_n \leq v_n \leq w_n, \forall n \in \N$, then $(v_n) \to \ell$.
+
+\tiny
+\greenbox{important series}\\
+(1) Geometric:\hint{by ALT}\\ $\sum a r^n = \frac{r}{1-r}$  iff $|r| < 1.$\\
+(2) p-series: \\ $\sum \frac{1}{n^p}$ \cv\ iff $p > 1
+.$
+\\(3) alternating harmonic:\\$\sum \frac{x^n}{n} \to \log2$.\\
+\hint{prod of series\\ $\sum_i \sum_j a_{ij} \neq \sum_j \sum_i a_{ij}$}
+
+\thm{Ratio test} Let $(a_n)$ be non zero reals and assume that $\LIMinfty |\frac{a_{n+1}}{a_n}| = r.$ Then if: (i) $r < 1, \sum a_n$ is absolutely \cv\.\\ (ii) $r > 1, \sum a_n$ dv.
+
+\thm{$|\cv\|$} If $\sum|a_n|$ \cv\ $\Rightarrow \sum a_n$ \cv\ abs.
+\hint{if $\sum a_n$ \cv\ abs, then any rearrangement of the series \cv\ to the same lim.}
+
+\thm{Comparison test}\\
+Let $(a_n)$ and $(b_n)$ be two seq: \\{$0 \leq a_n \leq b_n \forall n \in \N.$}\\
+If $\sum b_n$ \cv $\Rightarrow \sum a_n$ \cv.
+elif $\sum a_n$ dv $\Rightarrow \sum b_n$ dv.
+
+\thm{series with \positive\ terms} \\
+If $\sum a_n$ is a series with \positive\ terms that \cv 
+$\Leftrightarrow$ $\sum a_n$ is \bd.\\ elif the series is not  \bd,\  $\Rightarrow  \sum a_n $dv: $\LIMinfty s_n = \infty$
+
+\thm{Dirichlet} if partial sums of $\sum x_n$ are \bd (not necesarily \cv) and if $(y_n)$ satisfies $y_1 \geq y_2 \geq \hdots \geq 0\ $ and $\LIMinfty y_n = 0$ then $\sum x_n y_n$ \cv.
+
+\thm{AST} Let $(a_n)$ be a \decreasing\ sequence of \positive\ reals and 
+$\LIMinfty a_n = 0.$ Then $\sum(-1)^n a_n$ \cv.
+
+\thm{n-th term test}
+If $\sum a_n$ \cv\, then $a_n \to 0$ as $n \to \infty.$
+
+\thm{\cauchy\ for series}\\ $\sum a_n$ \cv\ in $\R \Leftrightarrow \forall \epsilon > 0 , \exists N \in \N : n \geq p \geq N, |a_p + \hdots + a_n| \leq \epsilon.$
+
+\thm{Cauchy condensation test}\\ suppose that $(b_n)$ is \decreasing and $b_n \geq 0, \forall n \in \N$. Then $\sum b_n$ \cv\ iff $\sum_{n=0} 2^{n} b_{2^n}$ \cv.
+
+
+\greenbox{find lim of $f$ from the def}\\
+(1)$|f(x) - \ell|$, and find a nice upper bound for this
+quantity in terms of x, small when $|x - c|$ is small.\\
+(2) x must be such that this upper bound is less than $\epsilon$.\\
+(3)algebra on the ineq obtained to find  $|x - c| \leq \delta $ 
+($\delta$ not dependent on x).
+
+\thm{SCL \hint{($\exists lim ?$)}} Let $f: A \to \R$ and $ c \in L(A)$, then:\\
+$(\LIMc f(x) = \ell) \Leftrightarrow$ (for any $(x_n) \in A$ converging to $c: x_n \neq c,\\ \forall n \in \N \Rightarrow f(x_n) \to \ell)$.
+
+\thm{ALT ($f$ \lim s)} \\Let $f, g \in A$ and $c \in L(A)$, assume that $\LIMc f(x) = \ell$ and $\LIMc g(x) = m.$\\ 
+(i) $\forall k \in \R, \LIMc k f(x) = k \ell$\\
+(ii) lim of the sum is sum of the lims.\\
+(iii) lim of prod is prod of lims.\\
+(iv) lim of quot is quot of lims (if lims exist).\\\hint{SCL and ALT (seq).}
+
+
+\thm{4.10 cnty and \lim}\\ Let $f: A \to \R$ and $c \in A \cap L(A)$.\\$\Rightarrow$ f is \cont\ at c \\$\Leftrightarrow \LIMc f(x) = f(c).$\\
+\hint{Translating each rty. Deal with with the case x = c in the translations.}
+
+\thm{SCC} Let $ f: A \to R$ and $ c \in A. \ f$ is \cont\ at c $\Leftrightarrow$ if $\forall (x_n) \in A$ converging to c we have $ f(x_n) \to f(c).$  
+\\\hint{By 4.10 and it's hint.\\Separate the case $c \in A \setminus L(A)\\$(this is trivial, since any $f \in$ A is \cont\ at any point of $A \setminus L(A) \hdots$ ).}
+
+\thm{ACT} Let $f, g \in A \to \R$ be \cont\ at  $c \in A$\\
+(i)$\forall k \in \R$, kf is \cont\ at c.\\
+(ii)$f + g$ is \cont\ at c.\\
+(iii)$fg$ is \cont\ at c.\\
+(iv) if $g\neq0$, $\frac{f}{g}$ is \cont\ at c.\\
+\hint{Consequence of the SCC and the ALT for seq.}
+
+\thm{CCF (composition)} Let $f:A \to \R$ be \cont\ at  $c \in A$ and $g: B \to \R$ be \cont\ at  $f(c).$
+$\Rightarrow g \circ f = g(f(x))$\\ is \cont\ at c.
+\\\hint{Use twice SCC (both directions)}
+
+\thm{CMT(\cntrctn)} Let I be a \clsd\ int and $f: I \to I$ be a 
+\cntrctn. Then $f$ has a unique fixed point x*.
+\\Moreover, if $x_0$ is an arbitrary point of X then the sequence $(x_n)$ defined inductively by $x_n = f(x_{n-1})$ \cv\ to x*.
+\\\hint{def of cntrctn.\\
+$\exists$ fixed point (*indtn) $(x_n): d(x_n,x_{n+1})  = def. of cntrctn.$\\
+Uniqueness of  fixed point:\\ $(1-\gamma) d(x^* , x^{**}) \leq 0.$\\
+remember: cntrctns have\\ domain = co-domain.
+\line if $[a,b]$ is a \clsd\ int then any \cont\ f\\
+$f: [a,b] \to [a,b]$ that has  at  least  one  fixed  point, is \cont\ by IVT. (evaluate int to show)
+\\Then the SCC $\Rightarrow f(x_n) \to f(x*)$ as $n \to \infty. \therefore$The lim\\ $f(x_{n}) = (x_{n+1})$ and so, \\ $f(x*) = x*$. }
+
+\thm{EVT} Let $K$ be a non-empty and \cmpct\ set of $\R$ and $f: K \to \R$ be \cont\ then f has a max (M) and a min (m) on K.
+\\\hint{$\exists \ x_0$ and $x_1 \in K:\\ \forall x \in K, f(x_0) \leq f(x) \leq f(x_1)$.
+by PCS $f(K)$ is cmpct and non-empy.\\
+$\forall x \in K, f(x) \in f(K)$ so $m \leq f(x) \leq M.$} 
+
+\thm{IVT} Let $ f:[a,b]\to \R$ be \cont\ and L be a real between $f(a)$ and $f(b). \Rightarrow \exists c \in [a,b]: f(c) = L.$
+\\\hint{assume $f(a) \leq L\leq f(b)$, let $c = sup_{x \in [a,b]}| f(x) \leq L\}.$ If $\exists (x_n): f(x_n) \leq L$ and $x_n \to c$ as $n \to \infty.$ by OLT, assume that $c < b$ (treat $c = b$ separately),\ and argue that $f(c+1/n) > L$ and so $f(c)\geq L.$}
+\\note: Some fs are not \cont\ (see Brouwer). but satisfy the IVT:\\ eg.$f(x) = \sin(1/x)$,with $f(0) = 0$.
+
+\thm{Preservation of ints}\\Let I be an int and $f:I\to \R$ be \cont. Then $f(I)$ is an int.
+\\\hint{Take $y<y' \in f(I)$ and L between $y$ and $y'$. $\exists x, x' \in I: \\f(x) = y, f(x') = y',$ apply the IVT between $x$ and $ x'$ to L.}
+
+\thm{Brouwer} \\Let $f:[a,b] \to [a,b]$ then f has at least one fixed point.
+\hint{Let I be an op int  of $\R$.(unless specified)\\remark:derivatives always satisfy IVT... even when they are not \cont}
+
+\line
+\hint{I is op unless specified
+\\Deriv are not nec \cont}
+\thm{5.3 1st order expansion}\\
+$g:I\to \R$ and $c \in I$. Then g is \diff\ at c $\Leftrightarrow \exists L \in \R$ and a f  defined on an op int around $0: \LIMh r(h) = 0$ and $\forall h$ in this int, $g(c+h) = g(c) + Lh + hr(h).$
+In this case, we have $g'(c) = L \\\therefore g(c+h) = g(c) + g'(c)h +hr(h)$. 
+
+\thm{\diff $\Rightarrow$ \cont}
+$g: I \to \R$ and $ c \in I$ if g is \diff\ at c the g is \cont\ at c.
+
+\thm{ADT}$f, g \in I\to \R$ and $c \in I$, \\assume that $f$ and $g$ are \diff\ at c.\\ 
+(i) $\forall k \in \R, kf$ is \diff\ at c and  $(kf)'(c) = kf'(c).$\\
+(ii) f + g is \diff\ at c and \\$(f+g)'(c)  = f'(c) + g'(c)$.\\
+(iii) fg is \diff\ at c and $(fg)'(c)  = f'(c)g(c) + f(c)g'(c)$.\\
+(iv) if denom does not vanish...The quot rule.
+\\\hint{def of \diff\ and ALTfL.}
+
+\thm{Chain Rule} Let I and J be op, $f:I \to J$ and $g:J \to \R$ and $c \in I$. if f is \diff\ at c and g is \diff\ at f(c) then $g \circ f$ is \diff\ at c and $(g \circ f)'(c) =g'(f(c))f'(c)$
+\hint{$h = (x-c)$ then $f (c + h) = f (c) + f'(c)h + hr(h)$ and $ g(f (c) + k) = g(f (c)) +
+g'(f(c))k + kq(k)$ where $r(h) \to 0$ as $h \to 0$. let $k = f (c + h) − f (c) = f'(c)h + hr(h) \to 0$ as $h\to0$, we get $g(f (c + h)) = ...$ }
+
+\thm{IET}\ $ g:I\to \R$ and $c \in I$ if c is an extremum of f and f is \diff\ at c then $f'(c) = 0$.
+\\\hint{max and mins occur when derivative = 0}
+\\\hint{Assume that c is a max of f. $f(c + h) \leq f(c)$.
+ Using (5.3) shows that $f'(c)h + hr(h) \leq 0$.
+Taking $h > 0$ gives $f'(c) + r(h) \leq 0$. Use OLT (or fal version)
+to deduce that $f'(c) \leq 0$. Taking $h < 0$ in (5.3) gives $f'(c) + r(h) ≥ 0$ and thus
+$f'(c) \geq 0.$}
+
+\thm{ 5.12 Location of extrema}\ Let $f : [a, b] \to \R$ be \cont\ on $[a, b]$ and \diff\ on $(a, b)$. Then f has
+minima and maxima, and these extrema are either a, b or c $\in (a, b)$:
+$f'(c) = 0$.
+\hint{try $f = x^3$!}
+\hint{EVT, f has at least one min and max. If one of
+these extrema is not a or b, then it lies in $(a, b)$ and it is an extremum of f
+on the op int $(a, b)$. Thus, the IET can be applied and f' vanishes at this
+extremum.}
+
+\thm{Rolle's}\ Let $a < b$. Let $f : [a, b] \to \R$ be \cont\ on $[a, b]$ and \diff\ on $(a, b)$. If $f(a) = f(b)$ then $\exists c \in (a, b): f'(c) = 0$.
+\hint{by EVT, f has a min and a max on the end points then f is constant on [a, b] f' = 0 on (a,b),else max/min in (a,b) then by IET f' = 0.}
+
+\thm{MVT}\ Let $a < b$ and $f : [a, b] \to \R$ be \cont\ on $[a, b]$ and \diff\ on (a, b). $\Rightarrow c \in (a, b): f'(c) = \frac{f (b) -f(a)}{b-a}.$
+\\\hint{*Rolle’s to the difference between f and the straight line going through (a, f (a)) and (b, f (b)),  i.e. to the f g defined by $g(x) =f (x) - [f (a) + \frac{f (b)-f(a)}{b-a} (x - a)]$.}
+
+
+\thm{Lipschitz estimate}\
+Let $a < b$. Let f be \cont\ on [a, b] and \diff\ on (a, b). Then $|f(b) -
+f (a)| \leq |b - a| sup|f'(x)|_x\in (a,b).$
+\hint{max speed = dist*max accel.}
+\hint{MVT}
+
+\thm{Monotony and sign of derivative}
+If f is \diff\ on an op int I and if f'= 0 (resp. $f'\geq 0$,or $f' \leq 0$) on I then f is constant (resp. increasing, or \decreasing) on I.
+\hint{MVT}
+
+\thm{5.19}
+If $f : I \to \R$ is \cont\ and $a \in I$ then $F(x) = \int_{a}^{x} f(s)ds$ on I, and F' = f on I.
+
+\thm{FTC}Let I be an op int, and $f : I \to \R$ be \diff. Assume that f' is
+\cont\ on I. Then, $\forall a, x \in I, \\f(x) = f(a) + \int_{a}^{x} f(s)ds$.
+\\\hint{5.19... F' = f'}
+
+\thm{Taylor exp}
+Let I be an op int that contains 0 and $n \in \N \cup \{0\}$. Let $f : I \to \R$ be $(n + 1)$ times continuously \diff\ Then, $\forall x \in I$,
+\\$f(x) = f(0) + f'(0)x +\hdots+ \frac{f^{(n)}(0)}{n!}x^{n}+O(x^{n+1})$
+
+\greenbox{O notation}\\
+1.if $k\geq m, O(x^k)+O(x^m) = O(x^m),$ (smallest remains)\\
+2.$O(x^{n+1}) = x^n O(x),$\\
+3.$\frac{O(x^{n+1})}{x^n} = O(x) \to 0$ as $x \to 0.$
+
+\greenbox{common Taylor exp.}\\
+*$e^x=1+x+\hdots+\frac{x^n}{n!}+O(x^{n+1})$.\\
+*$\sin(x)=x-\frac{x^3}{3!}+\hdots+(-1)^{n}\frac{x^{2n+1}}{(2n+1)!}+O(x^{2n+3}).$\\
+*$\cos(x)=1-\frac{x^2}{2!}+\hdots+(-1)^{n}\frac{x^{2n}}{(2n)!}+O(x^{2n+2}).$\\
+*$\frac{1}{1-x} = 1 +x +\hdots+ x^n+O(x^{n+1}).$\\
+*$\log(1+x) = x-\frac{x^2}{2}+\hdots+(-1)^{n-1}\frac{x^n}{n}+O(x^{n+1}).$
+
+\line
+\textcolor{ferngreen}{\pw \cv\ relies on $N_{x,\epsilon}$}
+\\let$(f_n(x)) \in A$ and use seq \cv\, or ALT 
+iff $f_n(x)$ \cv\ $\forall x \in A \Rightarrow (f_n(x))\to f$(if dv for any x then it doesn't \cv\ \pw.
+\\\textcolor{ferngreen}{\unif\ \cv\ relies on $N_\epsilon$\\}
+$sup(|f_n(x) - f(x)|)\to 0$ as $n \to \infty$:\\
+(a) Write for a generic x,\\ $|f_n (x) - f_(x)|$.\\
+(b) find small $\omega_n$, not depending on x:$|f_n(x)-f(x)| \leq \omega_n$.\\
+(c) If $(\omega_n)_n \to 0$, \\then $(f_n)\to f$ \unif\
+\\\textcolor{ferngreen}{\unif$\Rightarrow$ p.w.\\ converse is false.}
+\line
+\hint{$f_n$ \cv\ behaviour}\\
+-\pw:[0,1] \unif:[0,a] :$x^n \to f = 0$\\
+-\pw:[0,1] \unif:[a,1] :hat $\to f = 0$\\
+-\pw:[0,1] :$\frac{nx}{1+nx} \\ \to f = 1\ \mathrm{or}\ 0\ (x = 0)$\\
+%\begin{cases}0 & x = 0\\1 & x > 0\end{cases}$
+-\unif:[-1,1] $f_n$, \pw $f'_n \to f': \sqrt{x^2 + \frac{1}{n}} \to f = |x|(\neg \mathrm{\diff}).$\\
+-\unif:[0,1], $\frac{nx}{n+x} \to f = x$\\
+-\unif:[$\R$] $f'_n\nrightarrow$ \pw($\R$)\\
+$\frac{\sin(nx)}{n} \to f = 0$\\
+-\pw\ \cont\ $f_n \to f$ discont: $Arctan(x).$\\
+-\pw:[0,1] \bd\ $f_n \to f$ unbd: $\frac{nx}{(1+nx^2)}.$\\
+-\unif:[0,1] $\neg$ \diff\ $f_n \to f$ \diff\ at $x_0 \in [0,1]:
+g_n = \frac{1}{n}, x \leq x_0$ and $g_n = 0, x>x_0$.
+
+\line\hint{f behaviour}\\
+-\cont\ $f: \R \to \R$ \op\ I: $f(I)$ is $\neg \op: f = x^2$.\\
+-\cont\ $f: \R \to \R$ \clsd\ I: $f(I)$ is \op $[0,\infty): f = Arctan(x)$.\\
+-\cont\ \bd $f: (0,1) \to \R$ max/$\neg$min: $f = -(x-\frac12)^2.$\\
+-\cont\ $f: (0,1) \to \R$, \cauchy$(x_n) \in (0,1): f(x_n)$ is \cauchy: $x_n = \frac{1}{(n+1)}, f(x) = 1/x.$\\
+-\cont\ \bd\ $f: A \to \R$,$f(A) \neg$ \bd $A =(0,1),f = Log(x)$.\\
+-\cont\ $f_n \to f$ \cont\ \pw[0,1] $(x_n) \to x$ but $f(x_n) \nrightarrow f(x): f = hat.$\\
+-nowhere \cont\ Dirichlet (if $\in Q: 1$, else: 0)\\
+-\cont\ at 0 only mod.Dirichlet ($f = n *$ Dirichlet).\\
+-\cont\ on Irrationals: Thomae (if $\in Q:0$, else:$\frac1n$)
+
+\thm{CUL}
+Let $(f_n)$ and c $\in A$. Assume that each $f_n$ is
+\cont\ at c. If $(f_n)$ \cv\ \unif\ to f on A then f is also \cont\
+at c$\Rightarrow$ if each $(f_n)$ is \cont\ on A, then f is \cont\ on A.
+\hint{USE if each $f_n$ is \cont\ but f is not \cont\ (contrapos) $\Rightarrow$ \cv\ is not \unif.}
+
+\thm{Integration and \unif\ Lim} If $(f_n )$is \cont\ on [a, b] and \cv\ \unif. 
+$\to f$ on $[a, b] \Rightarrow \int_{a}^{b}f_n(x)dx \to \int_{a}^{b} f (x) dx.$
+
+\thm{\unif \cauchy}
+Let $(f_n)$ be defined on A. $(f_n)$ \cv\ \unif\
+on A $\Leftrightarrow \forall \epsilon > 0, \exists N  \in \N: \forall n, p \geq N$
+and $\forall x \in A, |f_n(x) - f_p(x)| \leq \epsilon$.
+\hint{cauchy $\therefore$ \cv\ \pw to f(x), by OLT $p \to \infty$  this shows the def.}
+
+\thm{\diff\ of the lim}Let $(f_n)$ be defined on an int [a, b], $f_n$ are \diff\ on (a, b). Assume that $(f_n)$ \cv\ \unif\ to f on [a, b] and
+that $(f_n')$ \cv\ \unif\ to g on\\ (a, b). Then f is \diff\ on (a, b)
+and \\f' = g. ergo: the lim of the derivative is the derivative of the lim.
+
+\thm{Darboux} f' always satisfies IVT: ie.
+if $f:I\to\R$ is \diff\ on op int I and a,b lie in I $\Rightarrow \forall f'(a) \leq L \leq f'(b) \exists c\in (a,b) : f'(c) = L.$
+
+\thm{6.15}\\1.If $\sum(f_n)$ \cv\ \unif, then the lim of $\sum(f_n)$  is \cont. \\2.If $\sum(f_n)$ and $\sum(f'_n)$ \cv\ \unif\ on (a,b),  then the lim of $\sum(f_n)$ is \diff\ and the lim of $(\sum(f_n))' = \sum(f'_n).$ 
+\hint{CUL and \diff\ of the \lim, remember to use the ACT or the ADT when needed.}
+
+\thm{\unif\ \cauchy\ for series}
+$\sum(f_n)$ \cv\ \unif\ on A $\Leftrightarrow \forall \epsilon > 0, \exists N \in \N: \forall n,p \geq N$ and $ \forall x \in A, \Rightarrow |f_p(x)+\hdots+f_n(x)|<\epsilon.$ 
+\hint{Cauchy for seq of reals.}
+
+\thm{M-test}
+Let $(f_n)$ be defined on A and $(M_n) \in \R :\forall x \in A, |f_n(x)| \leq M_n.$ If the \positive\ series of $M_n$ \cv\, then $\sum(f_n)$ \cv\ \unif\ on A.
+\hint{\cauchy \ for series and triang ineq}
+
+\greenbox{bestbuddy M-test}
+find an UB $M_n$ of $|f_n|$ for each n. To show that $M_n$ \cv\, use any of the tests for series of reals.
+
+\greenbox{prove \lim\ of $\sum f_n$ is \\\cont\ or \diff}\\
+(1)Establish \unif\ \cv\ of $\sum f_n$ \\(probably by M-test)\\
+(2)If each $f_n$ is \cont\ then 6.15 (1) $\Rightarrow f = \sum f_n$ is \cont. (finished for cont).
+(3)Establish \unif\ \cv\ of $\sum f'_n$ \\
+(4) by 6.15 (2) f is \diff\ with $f' = \sum f'_n.$ 
+(M-test, $\therefore $find UB($|f'_n|$) $= R_n$: $\sum R_n$ \cv.\\
+\hint{Note that the \unif\ \cv\ do not have to be on the entire domain over which we want to establish the \cont\ or \diff\ of f. If \cv\ are \unif\ on any \cmpct set in this domain, then the \cont\ or \diff\ of f is valid on the entire domain.}
+\thm{\cv\ of power series}\\
+Assume $\sum a_n x^n$ \cv\ at some $c \neq 0$.
+\\1. $\forall x \in \R: |x| < |c|, \sum a_n x^n $ \\\cv\ abs.
+\\2. for any $ 0 \leq r < |c|, \sum a_n x^n$ \cv\ \unif\ on [−r, r].
+\hint{ \\$|x| < R$, it \cv\ abs.
+• $|x| = R$, no idea.
+• $|x| > R$, it dv.}
+\thm{6.22 (Radius of \cv\.)}\\
+ $(a_n)$ of non zero reals: $ \LIMinfty |\frac{a_{n+1}}{a_n}| = \ell$. Then $\sum a_n x^n$  has $R = \frac{1}{\ell}$ if $\ell > 0$ or $R \nless \infty$ if $\ell  = 0.$
+\greenbox{find R and int of $\sum a_n x^n$}
+if$\frac{a_{n+1}}{a_n}$ \cv\: $R = \frac{1}{\ell}$ \\else: $R = sup\{x \geq 0;\sum a_n x^n$ \cv\}via \cv\ tests.\\int: if the
+$\sum a_n x^n$ \cv\ at $x = -R$ and/or $x = R$, then $I = [−R, R],
+I = (-R, R], \\I = [−R, R)$ or $I = (−R, R).$
+
+\hint{Int of \cv\:$[-1,1]:\sum \frac{x^n}{n^2}$\\
+$(-1,1): \sum x^n$\\
+$(-1,1]: \sum \frac{-x^n}{n}$\\
+$[-1,1):\sum \frac{x^n}{n}$}
+
+\thm{\diff\ power series}
+$\sum a_n x^n$ and $\sum n a_n x^{n-1}$ have same R.
+As a consequence,$\sum a_n x^n$ is \diff\ on $(−R, R)$
+\hint{to recover f, integrate! and to find integration const C find the value of f(0)}
+
+
+\end{multicols}
+\end{document}
+
